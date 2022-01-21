@@ -1,0 +1,13 @@
+name: MIC-NM
+title: MIC-NM
+username:
+account: shakson-yajimalab
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4864742
+bundleId: 5135835
+url: https://shakson-yajimalab.shinyapps.io/MIC-NM/
+when: 1634152129.66038
+lastSyncTime: 1634152129.66038
+asMultiple: FALSE
+asStatic: FALSE
