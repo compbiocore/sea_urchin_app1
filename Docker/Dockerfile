@@ -1,6 +1,5 @@
 # Base image https://hub.docker.com/u/rocker/
 FROM rocker/shiny:latest
-#FROM rocker/shiny:latest
 
 
 # system libraries of general use
@@ -17,22 +16,20 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     libssl-dev
 
 # ## update system libraries
-# RUN apt-get update && \
-#     apt-get upgrade -y && \
-#     apt-get clean
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get clean
 
 # # copy necessary files
-# ## app folder
-# RUN mkdir /root/pathway_maps_micnm
-# ## renv.lock file
-# COPY MICNMapp /root/shiny_save
+RUN mkdir ./rscripts
+COPY . /rscripts
 
-# # install renv & restore packages
-# RUN Rscript -e 'install.packages("renv")'
-# RUN Rscript -e 'renv::restore()'
+# Install R packages from both Bioconductor and CRAN 
+RUN Rscript /rscripts/R_Bioconductor.R
+RUN Rscript /rscripts/R_CRAN.R
 
 # # expose port
-# EXPOSE 3838
+EXPOSE 3838
 
 # # run app on container start
-# CMD ["R", "-e", "shiny::runApp('/app', host = '0.0.0.0', port = 3838)"]
+CMD ["R", "-e", "shiny::runApp('/rscripts/MICNMapp/pathway_maps_micnm.R', port = 3838, host = '0.0.0.0')"]
